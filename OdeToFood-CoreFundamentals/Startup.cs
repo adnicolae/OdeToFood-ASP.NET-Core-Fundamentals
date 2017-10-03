@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Routing;
 
 namespace OdeToFood_CoreFundamentals
 {
@@ -27,6 +28,7 @@ namespace OdeToFood_CoreFundamentals
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvcCore();
             services.AddSingleton(Configuration);
             services.AddSingleton<IGreeter, Greeter>();
         }
@@ -49,17 +51,19 @@ namespace OdeToFood_CoreFundamentals
 
             app.UseFileServer();
 
-            app.UseWelcomePage(new WelcomePageOptions
-            {
-                Path = "/test"
-            });
-        
-            // middleware that responds to every http request
-            app.Run(async (context) =>
-            {
-                var message = greeter.GetGreeting();
-                await context.Response.WriteAsync(message);
-            });
+            app.UseMvc(ConfigureRoutes);
+
+            app.Run(context => context.Response.WriteAsync("Not found!"));
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            // /Home/Index
+            // id is optional
+            // =Home - state the default controller
+            // =Index - state default action
+            routeBuilder.MapRoute("Default",
+                "{controller=Home}/{action=Index}/{id?}");
         }
     }
 }

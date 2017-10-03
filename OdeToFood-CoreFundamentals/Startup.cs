@@ -34,11 +34,27 @@ namespace OdeToFood_CoreFundamentals
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IGreeter greeter)
         {
+            // middleware Catch unhandled exceptions during development mode
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler(new ExceptionHandlerOptions
+                {
+                    ExceptionHandler = context => context.Response.WriteAsync("OOps!")
+                });
+            }
 
+            app.UseFileServer();
+
+            app.UseWelcomePage(new WelcomePageOptions
+            {
+                Path = "/test"
+            });
+        
+            // middleware that responds to every http request
             app.Run(async (context) =>
             {
                 var message = greeter.GetGreeting();

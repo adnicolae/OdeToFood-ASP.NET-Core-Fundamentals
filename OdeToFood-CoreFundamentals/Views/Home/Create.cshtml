@@ -1,0 +1,26 @@
+﻿@using OdeToFood_CoreFundamentals.Entities
+@model OdeToFood_CoreFundamentals.Entities.Restaurant
+<div>
+    <h1>Create restaurant</h1>
+    
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div>
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Cuisine)
+            <!--                
+                // to create a dropdown list, the dropdownlistfor requires a list parameter which can be taken from an edit view model
+                // in our case, the enum written in Restaurant can be used by Html.GetEnumSelectList 
+                -->
+                @Html.DropDownListFor(m => m.Cuisine, Html.GetEnumSelectList(typeof(CuisineType)))
+            </div>
+            <div>
+                <input type="submit" value="Save!"/>
+            </div>
+        }
+    </div>
+</div>

@@ -9,6 +9,7 @@ namespace OdeToFood_CoreFundamentals.Services
     public interface IRestaurantData
     {
         IEnumerable<Restaurant> GetAll();
+        Restaurant Get(int id);
     }
 
     public class InMemoryRestaurantData : IRestaurantData
@@ -28,6 +29,11 @@ namespace OdeToFood_CoreFundamentals.Services
         public IEnumerable<Restaurant> GetAll()
         {
             return _restaurants;
+        }
+
+        public Restaurant Get(int id)
+        {
+            return _restaurants.FirstOrDefault(r => r.Id == id);
         }
     }
 }

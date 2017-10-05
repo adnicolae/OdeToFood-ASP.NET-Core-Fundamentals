@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OdeToFood_CoreFundamentals.Models;
+using OdeToFood_CoreFundamentals.Entities;
 
 namespace OdeToFood_CoreFundamentals.Services
 {

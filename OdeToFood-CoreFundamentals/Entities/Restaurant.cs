@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OdeToFood_CoreFundamentals.Models
+namespace OdeToFood_CoreFundamentals.Entities
 {
     public class Restaurant
     {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Routing;
+using OdeToFood_CoreFundamentals.Services;
 
 namespace OdeToFood_CoreFundamentals
 {
@@ -29,8 +30,11 @@ namespace OdeToFood_CoreFundamentals
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcCore();
+            services.AddMvcCore().AddJsonFormatters();
+            services.AddMvcCore().AddRazorViewEngine();
             services.AddSingleton(Configuration);
             services.AddSingleton<IGreeter, Greeter>();
+            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

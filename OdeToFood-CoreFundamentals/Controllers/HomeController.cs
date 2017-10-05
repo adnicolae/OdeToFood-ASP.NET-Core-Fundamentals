@@ -1,15 +1,27 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OdeToFood_CoreFundamentals.Models;
+using OdeToFood_CoreFundamentals.Services;
 
 namespace OdeToFood_CoreFundamentals.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
-        public string Index()
+        private IRestaurantData _restaurantData;
+
+        public HomeController(IRestaurantData restaurantData)
         {
-            return "Hello world";
+            _restaurantData = restaurantData;
+        }
+
+        public IActionResult Index()
+        {
+            var model = _restaurantData.GetAll();
+
+            return View(model);
         }
     }
 }

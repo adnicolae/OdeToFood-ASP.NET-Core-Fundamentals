@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using OdeToFood_CoreFundamentals.Services;
 using OdeToFood_CoreFundamentals.ViewModels;
+using OdeToFood_CoreFundamentals.Entities;
 
 namespace OdeToFood_CoreFundamentals.Controllers
 {
@@ -40,9 +41,23 @@ namespace OdeToFood_CoreFundamentals.Controllers
             return View(model);
         }
 
+        // Get the form
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+        // Post the data back to the server
+        [HttpPost]
+        public IActionResult Create(RestaurantEditViewModel model)
+        {
+            var newRestaurant = new Restaurant();
+            newRestaurant.Cuisine = model.Cuisine;
+            newRestaurant.Name = model.Name;
+
+            newRestaurant = _restaurantData.Add(newRestaurant);
+            return RedirectToAction("Details", new { id = newRestaurant.Id });
         }
     }
 }

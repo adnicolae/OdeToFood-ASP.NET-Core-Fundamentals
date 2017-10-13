@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using OdeToFood_CoreFundamentals.Services;
 using OdeToFood_CoreFundamentals.ViewModels;
 using OdeToFood_CoreFundamentals.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OdeToFood_CoreFundamentals.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private IRestaurantData _restaurantData;
@@ -20,6 +22,7 @@ namespace OdeToFood_CoreFundamentals.Controllers
             _greeter = greeter;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var model = new HomePageViewModel();

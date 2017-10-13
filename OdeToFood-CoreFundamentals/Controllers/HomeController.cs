@@ -41,6 +41,35 @@ namespace OdeToFood_CoreFundamentals.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var model = _restaurantData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, RestaurantEditViewModel model)
+        {
+            var restaurant = _restaurantData.Get(id);
+            
+            if (ModelState.IsValid)
+            {
+                restaurant.Cuisine = model.Cuisine;
+                restaurant.Name = model.Name;
+
+                _restaurantData.Commit();
+                return RedirectToAction("Details", new { id = restaurant.Id });
+            }
+            // if the model state is invalid, give users the chance to fix the data
+            return View(restaurant);
+        }
+
         // Get the form
         [HttpGet]
         public IActionResult Create()
@@ -60,6 +89,7 @@ namespace OdeToFood_CoreFundamentals.Controllers
                 newRestaurant.Name = model.Name;
 
                 newRestaurant = _restaurantData.Add(newRestaurant);
+                _restaurantData.Commit();
                 return RedirectToAction("Details", new { id = newRestaurant.Id });
             }
             return View();

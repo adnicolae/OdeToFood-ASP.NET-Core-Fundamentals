@@ -11,6 +11,7 @@ namespace OdeToFood_CoreFundamentals.Services
         IEnumerable<Restaurant> GetAll();
         Restaurant Get(int id);
         Restaurant Add(Restaurant newRestaurant);
+        void Commit();
     }
 
     public class SqlRestaurantdata : IRestaurantData
@@ -25,8 +26,12 @@ namespace OdeToFood_CoreFundamentals.Services
         public Restaurant Add(Restaurant newRestaurant)
         {
             _context.Add(newRestaurant);
-            _context.SaveChanges();
             return newRestaurant;
+        }
+
+        public void Commit()
+        {
+            _context.SaveChanges();
         }
 
         public Restaurant Get(int id)
@@ -38,6 +43,8 @@ namespace OdeToFood_CoreFundamentals.Services
         {
             return _context.Restaurants;
         }
+
+
     }
 
     public class InMemoryRestaurantData : IRestaurantData
@@ -70,6 +77,11 @@ namespace OdeToFood_CoreFundamentals.Services
             _restaurants.Add(newRestaurant);
 
             return newRestaurant;
+        }
+
+        public void Commit()
+        {
+            // no op
         }
     }
 }

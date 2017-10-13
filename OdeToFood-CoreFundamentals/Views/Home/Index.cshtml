@@ -2,7 +2,6 @@
 
 @{ 
     ViewBag.Title = "Home";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Welcome!</h1>
@@ -13,16 +12,17 @@
     {
         <tr>
             <td>
-                <a href="/home/details/@restaurant.Id">Details</a>
-                @Html.ActionLink("View", "Details", new{ id = restaurant.Id })
-            </td>
-            <td>
                 @restaurant.Name
             </td>
-
+            <td>
+                <a asp-action="Details" asp-route-id="@restaurant.Id">Details</a>
+                <a asp-action="Edit" asp-route-id="@restaurant.Id">Edit</a>
+            </td>
         </tr>
     }
 </table>
+
+<a asp-controller="Home" asp-action="Create">Create</a>
 
 @section footer {
     <h3>@Model.CurrentMessage</h3>

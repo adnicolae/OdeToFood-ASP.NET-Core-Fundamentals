@@ -59,7 +59,7 @@ namespace OdeToFood_CoreFundamentals
                 });
             }
 
-            //app.UseFileServer();
+            app.UseFileServer();
 
             app.UseAuthentication();
 
